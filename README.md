@@ -7,6 +7,7 @@ Requirements
 ------------
 
 TODO:
+`cryptography` python module if you decide to use automatic gen of self-signed certs
 
 Role Variables
 --------------
