@@ -1,2 +1,11 @@
 ---
 # handlers file for vault
+
+- name: Reload systemd daemon
+  systemd:
+    daemon-reload: yes 
+
+- name: Restart Vault service
+  systemd:
+    state: restarted
+    name: vault.service

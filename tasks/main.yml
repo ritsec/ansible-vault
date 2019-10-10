@@ -1,2 +1,59 @@
 ---
 # tasks file for vault
+
+- name: Create Vault system user
+  user:
+    state: present
+    name: vault
+    comment: HashiCorp Vault
+    system: yes
+    password: '!'  # Disables user
+    update_password: always
+
+- name: Create Vault installation folder
+  file:
+    state: directory
+    path: /opt/vault
+    owner: vault
+    group: vault
+    mode: '0700'
+
+- name: Download and extract the Vault binary
+  unarchive:
+    src: https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip
+    dest: /opt/vault
+    remote_src: yes
+    owner: vault
+    group: vault
+    mode: '0700'
+
+- name: Symlink the Vault binary to a location within the PATH
+  file:
+    state: link
+    src: /opt/vault/vault
+    dest: /usr/local/bin/vault
+
+- name: Configure Vault
+  template:
+    src: config.hcl
+    dest: /opt/vault/config.hcl
+    owner: vault
+    group: vault
+    mode: '0600'
+  notify:
+    - Restart Vault service
+
+- name: Add systemd service
+  copy:
+    src: vault.service
+    dest: /etc/systemd/system/vault.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload systemd daemon
+
+- name: Enable Vault service
+  systemd:
+    state: enabled
+    name: vault.service

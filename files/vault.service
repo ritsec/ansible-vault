@@ -1,0 +1,9 @@
+[Unit]
+Description=HashiCorp Vault secrets management server
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/vault server -config=/opt/vault/config.hcl
