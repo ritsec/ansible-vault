@@ -1,0 +1,69 @@
+---
+scenario:
+  # Defining a custom test sequence so things aren't unnecessarily created and
+  # deleted.
+  test_sequence:
+    - lint
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - cleanup
+    - destroy
+
+dependency:
+  name: galaxy
+
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+lint:
+  name: yamllint
+
+platforms:
+  # Comment out the ones you don't want to use
+  # CentOS
+  - name: centos7
+    box: centos/7
+  - name: centos6
+    box: centos/6
+
+  # Debian
+  - name: debian9
+    box: debian/stretch64
+  - name: debian8
+    box: debian/jessie64
+
+  # Fedora
+  - name: fedora30
+    box: generic/fedora30
+
+  # Ubuntu
+  - name: ubuntu1904
+    box: ubuntu/disco64
+  - name: ubuntu1804
+    box: ubuntu/bionic64
+  - name: ubuntu1604
+    box: ubuntu/xenial64
+  - name: ubuntu1404
+    box: ubuntu/trusty64
+
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    converge: ../resources/playbook.yml
+
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  options:
+    v: true
+  directory: ../resources/tests

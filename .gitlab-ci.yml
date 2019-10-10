@@ -1,0 +1,19 @@
+---
+image: python:latest
+
+variables:
+  # All the AMI IDs in molecule.yml are for us-east-2. If you switch this
+  # you will need to find AMIs in your desired region.
+  AWS_REGION: us-east-2
+
+before_script:
+  - echo "PLEASE VERIFY THAT \$CI_JOB_ID ($CI_JOB_ID) IS EQUAL TO THE JOB ID!!"
+  - echo "IF THEY DO NOT MATCH, THIS JOB MAY FAIL!"
+  - pip install ansible molecule
+  - pip install 'molecule[ec2]'
+
+molecule_test:
+  tags:
+    - docker
+  script:
+    - molecule test -s ec2
