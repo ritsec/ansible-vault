@@ -7,3 +7,4 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/vault server -config=/opt/vault/config.hcl
+User=vault
