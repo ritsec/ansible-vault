@@ -3,4 +3,5 @@
   hosts: all
   become: true
   roles:
-    - role: vault
+    # Role name is changed because the repository's name is ansible-vault
+    - role: ansible-vault

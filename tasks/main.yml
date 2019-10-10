@@ -18,6 +18,13 @@
     group: vault
     mode: '0700'
 
+- name: Install unzip to extract vault binary
+  apt:
+    state: present
+    name: unzip
+    update_cache: yes
+    force_apt_get: yes
+
 - name: Download and extract the Vault binary
   unarchive:
     src: https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip
@@ -32,6 +39,10 @@
     state: link
     src: /opt/vault/vault
     dest: /usr/local/bin/vault
+
+- name: Generate self-signed certificates if specified
+  import_tasks: tls.yml
+  when: vault_generate_certificates == True
 
 - name: Configure Vault
   template:
@@ -53,7 +64,8 @@
   notify:
     - Reload systemd daemon
 
-- name: Enable Vault service
+- name: Start and Enable Vault service
   systemd:
-    state: enabled
+    state: started
     name: vault.service
+    enabled: yes
