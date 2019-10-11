@@ -6,14 +6,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ["MOLECULE_INVENTORY_FILE"]
 ).get_hosts("all")
 
-FILES = [
-    "/usr/local/bin/vault",
-    "/opt/vault/vault",
-    "/opt/vault/config.hcl",
-    "/opt/vault/vault-key.pem",
-    "/opt/vault/vault-cert.pem",
-]
-
 
 def test_user(host):
     user = host.user("vault")
@@ -24,22 +16,6 @@ def test_user(host):
     assert user.uid < 1000
     assert user.gid < 1000
     assert user.group == "vault"
-
-
-def test_files(host):
-    # Test for vault directory
-    assert host.file("/opt/vault").exists
-    assert host.file("/opt/vault").is_directory
-
-    # Test for various vault directories
-    for file_path in FILES:
-        assert host.file(file_path).exists
-        assert host.file(file_path).is_file
-        assert host.file(file_path).user == "vault"
-        assert host.file(file_path).group == "vault"
-        # Make sure it's not world- or group-readable
-        mode = host.file(file_path).mode
-        assert (mode & 0o7077) == 0
 
 
 def test_service(host):
