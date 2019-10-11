@@ -28,6 +28,8 @@ lint:
 platforms:
   - name: ubuntu1804
     box: ubuntu/bionic64
+    memory: 2048
+    cpus: 2
 
 provisioner:
   name: ansible
