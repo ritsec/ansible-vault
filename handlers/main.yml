@@ -3,7 +3,7 @@
 
 - name: Reload systemd daemon
   systemd:
-    daemon-reload: yes 
+    daemon-reload: yes
 
 - name: Restart Vault service
   systemd:

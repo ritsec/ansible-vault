@@ -42,7 +42,7 @@
 
 - name: Generate self-signed certificates if specified
   import_tasks: tls.yml
-  when: vault_generate_certificates == True
+  when: vault_generate_certificates|bool
 
 - name: Configure Vault
   template:

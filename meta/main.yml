@@ -13,9 +13,9 @@ galaxy_info:
   # in some form of CI.
 
   platforms:
-  - name: Ubuntu
-    versions:
-    - bionic
+    - name: Ubuntu
+      versions:
+        - bionic
 
   galaxy_tags: []
   # List tags for your role here, one per line. A tag is a keyword that

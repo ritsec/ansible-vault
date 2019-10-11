@@ -41,7 +41,7 @@
           Name: molecule
           Owner: operations-program
       register: security_group
-    
+
     - name: Create default subnet for VPC
       ec2_vpc_subnet:
         state: present
