@@ -10,3 +10,4 @@ listener "tcp" {
 
 cluster_name = "name"  # TODO: fix
 ui = true
+api_addr = "https://{{ vault_domain }}/"
