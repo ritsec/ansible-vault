@@ -10,6 +10,10 @@
     password: '!'  # Disables user
     update_password: always
 
+- name: Set permissions on Vault TLS certificate/key, if necessary
+  import_tasks: tls.yml
+  when: vault_tcp_tls_disable == "false"
+
 - name: Create Vault installation folder
   file:
     state: directory

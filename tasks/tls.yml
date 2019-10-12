@@ -1,0 +1,20 @@
+---
+
+# Tasks to configure permissions on TLS certificates, if TLS is used to access
+# the Vault API and UI.
+
+- name: Set permissions on Vault certificate
+  file:
+    state: file
+    src: "{{ vault_tcp_tls_cert_file }}"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
+    mode: "0644"
+
+- name: Set permissions on Vault keyfile
+  file:
+    state: file
+    src: "{{ vault_tcp_tls_key_file }}"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
+    mode: "0600"
