@@ -1,0 +1,45 @@
+{% if vault_storage_backend == "consul" %}
+storage "consul" {
+    address                     = "{{ vault_consul_address }}"
+    disable_registration        = "{{ vault_consul_disable_registration }}"
+    path                        = "{{ vault_consul_path }}"
+    scheme                      = "{{ vault_consul_scheme }}"
+    service                     = "{{ vault_consul_service }}"
+    service_tags                = "{{ vault_consul_service_tags }}"
+    token                       = "{{ vault_consul_token }}"
+{% if vault_consul_scheme == "https" %}
+    tls_ca_file                 = "{{ vault_consul_tls_ca_file }}"
+    tls_cert_file               = "{{ vault_consul_tls_cert_file }}"
+    tls_key_file                = "{{ vault_consul_tls_key_file }}"
+    tls_min_version             = "{{ vault_consul_tls_min_version }}"
+    tls_skip_verify             = "{{ vault_consul_tls_skip_verify }}"
+{% endif %}
+}
+{% elif vault_storage_backend == "file" %}
+storage "file" {
+    path                        = "{{ vault_filesystem_path }}"
+}
+{% elif vault_storage_backend == "inmem" %}
+storage "inmem" {}
+{% endif %}
+
+listener "tcp" {
+    address                     = "{{ vault_tcp_address }}"
+    cluster_address             = "{{ vault_tcp_cluster_address }}"
+    tls_disable                 = {{ vault_tcp_tls_disable }}
+{% if vault_tcp_tls_disable == "false" %}
+    tls_cert_file               = "{{ vault_tcp_tls_cert_file }}"
+    tls_key_file                = "{{ vault_tcp_tls_key_file }}"
+{% endif %}
+}
+
+{% if vault_cluster_name %}
+cluster_name                    = "{{ vault_cluster_name }}"
+{% endif %}
+ui                              = {{ vault_ui }}
+pid_file                        = "{{ vault_pid_file }}"
+{% if vault_storage_backend == "consul" and vault_ha %}
+api_addr                        = "{{ vault_api_addr }}"
+cluster_addr                    = "{{ vault_cluster_addr }}"
+disable_clustering              = "{{ vault_disable_clustering }}"
+{% endif %}

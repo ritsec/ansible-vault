@@ -6,6 +6,6 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/vault server -config=/opt/vault/config.hcl
-User=vault
+ExecStart={{ vault_symlink_target }} server -config={{ vault_installation_path }}/config.hcl
+User={{ vault_user_name }}
 LimitMEMLOCK=infinity

@@ -42,7 +42,7 @@
 
 - name: Configure Vault
   template:
-    src: config.hcl
+    src: config.hcl.j2
     dest: "{{ vault_installation_path }}/config.hcl"
     owner: "{{ vault_user_name }}"
     group: "{{ vault_user_name }}"
@@ -52,8 +52,8 @@
 
 - name: Add systemd service
   template:
-    src: vault.service
-    dest: "/etc/systemd/system/vault.service"
+    src: vault.service.j2
+    dest: "{{ vault_servicefile_path }}"
     owner: root
     group: root
     mode: '0644'
