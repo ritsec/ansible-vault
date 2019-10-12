@@ -29,7 +29,7 @@ listener "tcp" {
     tls_disable                 = {{ vault_tcp_tls_disable }}
 {% if vault_tcp_tls_disable == "false" %}
     tls_cert_file               = "{{ vault_tcp_tls_cert_file }}"
-    tls_key_file                = "{{ vault_tcp_tls_key_file }}"
+    tls_key_file                = "{{ vault_tcp_tls_key_file_symlink }}"
 {% endif %}
 }
 
