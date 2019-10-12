@@ -4,8 +4,8 @@
 - name: Create Vault system user
   user:
     state: present
-    name: vault
-    comment: HashiCorp Vault
+    name: "{{ vault_user_name }}"
+    comment: "{{ vault_user_gecos }}"
     system: yes
     password: '!'  # Disables user
     update_password: always
@@ -13,9 +13,9 @@
 - name: Create Vault installation folder
   file:
     state: directory
-    path: /opt/vault
-    owner: vault
-    group: vault
+    path: "{{ vault_installation_path }}"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_gecos }}"
     mode: '0700'
 
 - name: Install unzip to extract vault binary
@@ -27,37 +27,33 @@
 
 - name: Download and extract the Vault binary
   unarchive:
-    src: https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip
-    dest: /opt/vault
+    src: "{{ vault_download_fullurl }}"
+    dest: "{{ vualt_installation_path }}"
     remote_src: yes
-    owner: vault
-    group: vault
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
     mode: '0700'
 
 - name: Symlink the Vault binary to a location within the PATH
   file:
     state: link
-    src: /opt/vault/vault
-    dest: /usr/local/bin/vault
-
-- name: Generate self-signed certificates if specified
-  import_tasks: tls.yml
-  when: vault_generate_certificates|bool
+    src: "{{ vault_installation_path }}/vault"
+    dest: "{{ vault_symlink_target }}"
 
 - name: Configure Vault
   template:
     src: config.hcl
-    dest: /opt/vault/config.hcl
-    owner: vault
-    group: vault
+    dest: "{{ vault_installation_path }}/config.hcl"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
     mode: '0600'
   notify:
     - Restart Vault service
 
 - name: Add systemd service
-  copy:
+  template:
     src: vault.service
-    dest: /etc/systemd/system/vault.service
+    dest: "/etc/systemd/system/vault.service"
     owner: root
     group: root
     mode: '0644'
