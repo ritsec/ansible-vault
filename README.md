@@ -6,8 +6,7 @@ An Ansible role to deploy and configure HashiCorp Vault.
 Requirements
 ------------
 
-TODO:
-`cryptography` python module if you decide to use automatic gen of self-signed certs
+This role does not have any additional requirements.
 
 Role Variables
 --------------
@@ -167,7 +166,7 @@ for more information on each storage backend.
 Dependencies
 ------------
 
-TODO:
+This role does not depend on any other roles.
 
 Example Playbook
 ----------------
@@ -175,6 +174,11 @@ Example Playbook
 ```yaml
 - hosts: all
   become: true
+  vars:
+    vault_ui: "true"
+    vault_tcp_address: "0.0.0.0:8200"
+    vault_tcp_tls_disable: "true"
+    vault_filesystem_path: "/tmp"
   roles:
     - vault
 ```

@@ -2,6 +2,11 @@
 - name: Converge
   hosts: all
   become: true
+  vars:
+    vault_ui: "true"
+    vault_tcp_address: "0.0.0.0:8200"
+    vault_tcp_tls_disable: "true"
+    vault_filesystem_path: "/tmp"
   roles:
     # Role name is changed because the repository's name is ansible-vault
     - role: ansible-vault
