@@ -33,11 +33,10 @@ listener "tcp" {
 {% endif %}
 }
 
-{% if vault_cluster_name %}
+{% if vault_cluster_name is defined %}
 cluster_name                    = "{{ vault_cluster_name }}"
 {% endif %}
 ui                              = {{ vault_ui }}
-pid_file                        = "{{ vault_pid_file }}"
 {% if vault_storage_backend == "consul" and vault_ha %}
 api_addr                        = "{{ vault_api_addr }}"
 cluster_addr                    = "{{ vault_cluster_addr }}"

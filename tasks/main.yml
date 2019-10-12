@@ -15,7 +15,7 @@
     state: directory
     path: "{{ vault_installation_path }}"
     owner: "{{ vault_user_name }}"
-    group: "{{ vault_user_gecos }}"
+    group: "{{ vault_user_name }}"
     mode: '0700'
 
 - name: Install unzip to extract vault binary
@@ -28,7 +28,7 @@
 - name: Download and extract the Vault binary
   unarchive:
     src: "{{ vault_download_fullurl }}"
-    dest: "{{ vualt_installation_path }}"
+    dest: "{{ vault_installation_path }}"
     remote_src: yes
     owner: "{{ vault_user_name }}"
     group: "{{ vault_user_name }}"

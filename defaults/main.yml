@@ -14,10 +14,10 @@ vault_installation_path: /opt/vault
 vault_version: 1.2.3
 
 # Website and path to download Vault from.
-vault_download_baseurl: https://releases.hashicorp.com/vault/
+vault_download_baseurl: https://releases.hashicorp.com/vault
 
 # Full URL that Vault will be downloaded from.
-vault_download_fullurl: "{{ vault_download_url }}/{{ vault_version }}/vault_{{ vault_version }}_linux_amd64.zip"
+vault_download_fullurl: "{{ vault_download_baseurl }}/{{ vault_version }}/vault_{{ vault_version }}_linux_amd64.zip"
 
 # Where to create a symbolic link to the Vault binary. Should be in the $PATH.
 vault_symlink_target: "/usr/local/bin/vault"
