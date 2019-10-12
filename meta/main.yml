@@ -3,6 +3,7 @@ galaxy_info:
   author: 'RITSEC Operations Program'
   description: 'An Ansible role to deploy and configure HashiCorp Vault.'
   company: RITSEC
+  role_name: vault
 
   license: BSD
 
