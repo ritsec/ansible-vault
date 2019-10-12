@@ -10,10 +10,6 @@
     password: '!'  # Disables user
     update_password: always
 
-- name: Set permissions on Vault TLS certificate/key, if necessary
-  import_tasks: tls.yml
-  when: vault_tcp_tls_disable == "false"
-
 - name: Create Vault installation folder
   file:
     state: directory
@@ -21,6 +17,10 @@
     owner: "{{ vault_user_name }}"
     group: "{{ vault_user_name }}"
     mode: '0700'
+
+- name: Set permissions on Vault TLS certificate/key, if necessary
+  import_tasks: tls.yml
+  when: vault_tcp_tls_disable == "false"
 
 - name: Install unzip to extract vault binary
   apt:
