@@ -1,2 +1,4 @@
 ---
 # vars file for vault
+
+vault_tcp_tls_key_file_symlink: "{{ vault_installation_path }}/vault-key.pem"

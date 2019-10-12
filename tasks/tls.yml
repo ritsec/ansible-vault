@@ -18,3 +18,14 @@
     owner: "{{ vault_user_name }}"
     group: "{{ vault_user_name }}"
     mode: "0600"
+
+# This is so the Vault user can access the private key even if it's in a folder
+# they don't have permissions to, like /etc/ssl/private on Ubuntu.
+- name: Symlink Vault keyfile to installation directory
+  file:
+    state: hard
+    path: "{{ vault_tcp_tls_key_file_symlink }}"
+    src: "{{ vault_tcp_tls_key_file }}"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
+    mode: "0600"
