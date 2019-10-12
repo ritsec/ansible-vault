@@ -23,33 +23,8 @@ lint:
 
 # All AMIs are in us-east-2
 platforms:
-  # Comment out the ones you don't want to use
-  # CentOS
-  - name: centos7
-    image: ami-e1496384
-  - name: centos6
-    image: ami-ff48629a
-
-  # Debian
-  - name: debian9
-    image: ami-0b0fa20f212e7257d
-  - name: debian8
-    image: ami-b2795cd7
-
-  # Fedora
-  - name: fedora30
-    image: ami-00b43acad6bfbc73a
-
-  # Ubuntu
-  - name: ubuntu1904
-    image: ami-0b8b176ef4535c8e4
   - name: ubuntu1804
     image: ami-021b7b04f1ac696c2
-  - name: ubuntu1604
-    image: ami-07e26819c90e50327
-  - name: ubuntu1404
-    image: ami-0c929bde1796e1484
-
 
 provisioner:
   name: ansible
