@@ -44,6 +44,15 @@
     src: "{{ vault_installation_path }}/vault"
     dest: "{{ vault_symlink_target }}"
 
+- name: Set up directory for filesystem storage backend
+  file:
+    state: directory
+    path: "{{ vault_filesystem_path }}/vault"
+    owner: "{{ vault_user_name }}"
+    group: "{{ vault_user_name }}"
+    mode: "0700"
+  when: vault_storage_backend == "file"
+
 - name: Configure Vault
   template:
     src: config.hcl.j2

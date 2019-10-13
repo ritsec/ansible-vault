@@ -106,5 +106,6 @@ vault_consul_tls_key_file: ""
 # the Consul scheme is https.
 vault_consul_tls_min_version: "tls12"
 
-# The path on the filesystem to which Vault will store data.
+# The path on the filesystem to which Vault will store data. A new directory
+# will be created under this path.
 vault_filesystem_path: ""

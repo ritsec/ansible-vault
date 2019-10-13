@@ -110,6 +110,7 @@ for more information on each storage backend.
 
 #### `vault_filesystem_path:` ""
 - The path on the filesystem to which Vault will store data.
+- A new directory named `vault/` will be created under this path.
 - Only used when `vault_storage_backend` is set to "file".
 
 #### `vault_consul_address`: "127.0.0.1:8500"

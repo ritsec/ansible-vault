@@ -17,7 +17,7 @@ storage "consul" {
 }
 {% elif vault_storage_backend == "file" %}
 storage "file" {
-    path                        = "{{ vault_filesystem_path }}"
+    path                        = "{{ vault_filesystem_path }}/vault"
 }
 {% elif vault_storage_backend == "inmem" %}
 storage "inmem" {}
